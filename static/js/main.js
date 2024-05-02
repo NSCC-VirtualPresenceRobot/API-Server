@@ -41,9 +41,26 @@
         }
     }
 
-    function sendCMD(cmd) {
+    // Just locally console
+    function sendCMD2(cmd) {
         console.log("Command:", cmd);
     }
+
+    // Send cmd to Server, using fetch
+    function sendCMD(cmd) {
+        //console.log("Command:", cmd);
+        fetch('/cmd', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ key: cmd })
+        })
+            .then(response => response.json())
+            .then(data => console.log(data.message))
+            .catch(error => console.error('Error:', error));
+    }
+
 
     // Map the keyboard
     function handleKeyPress(event) {
