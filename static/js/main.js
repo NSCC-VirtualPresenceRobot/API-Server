@@ -8,6 +8,7 @@
 
         var hostname = location.hostname;
         var address = hostname + ':' + (location.port || (location.protocol === 'https:' ? 443 : 80)) + '/webrtc';
+        //var address = '127.0.0.1:8080/webtrc' //not work
         var protocol = location.protocol === "https:" ? "wss:" : "ws:";
         var wsurl = protocol + '//' + address;
 

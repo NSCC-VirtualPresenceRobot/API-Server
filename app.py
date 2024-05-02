@@ -1,6 +1,10 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 
 app = Flask(__name__)
+
+@app.route('/webrtc', methods=['GET', 'POST'])
+def webrtc_signaling():
+    return 'Received WebRTC signaling:'
 
 @app.route('/')
 def index():
