@@ -44,8 +44,15 @@ def run_robot_threads():
     lcd_thread = threading.Thread(target=robot.update_lcd)
     lcd_thread.start()
 
+    return movement_thread, lcd_thread
+
 if __name__ == '__main__':
     # run robot threads before run api server
-    run_robot_threads()
+    movement_thread, lcd_thread = run_robot_threads()
 
     app.run(debug=True, host='0.0.0.0', port=5000)
+
+    # When the application exits, stop the threads
+    robot.stop_threads()
+    movement_thread.join()
+    lcd_thread.join()
