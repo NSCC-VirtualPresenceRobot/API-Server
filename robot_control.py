@@ -96,7 +96,7 @@ class RobotControl:
         self.back_left_pwm.ChangeDutyCycle(100)
         self.back_right_pwm.ChangeDutyCycle(100)
         
-        self.movement_status = "Moving Forward"
+        self.movement_status = "Move Forward"
     
     def backward(self):
         GPIO.output(self.con1in1, GPIO.HIGH)
@@ -116,7 +116,7 @@ class RobotControl:
         self.back_left_pwm.ChangeDutyCycle(100)
         self.back_right_pwm.ChangeDutyCycle(100)
         
-        self.movement_status = "Moving Backward"
+        self.movement_status = "Move Backward"
 
     def strafe_left(self):
         GPIO.output(self.con1in1, GPIO.LOW)
@@ -136,7 +136,7 @@ class RobotControl:
         self.back_left_pwm.ChangeDutyCycle(100)
         self.back_right_pwm.ChangeDutyCycle(100)
         
-        self.movement_status = "Moving Left"
+        self.movement_status = "Move Left"
 
     def strafe_right(self):
         GPIO.output(self.con1in1, GPIO.HIGH)
@@ -156,7 +156,7 @@ class RobotControl:
         self.back_left_pwm.ChangeDutyCycle(100)
         self.back_right_pwm.ChangeDutyCycle(100)
         
-        self.movement_status = "Moving Right"
+        self.movement_status = "Move Right"
    
     def turn_right(self):
         GPIO.output(self.con1in1, GPIO.HIGH)
@@ -176,7 +176,7 @@ class RobotControl:
         self.back_left_pwm.ChangeDutyCycle(100)
         self.back_right_pwm.ChangeDutyCycle(100)
         
-        self.movement_status = "Turning Right"
+        self.movement_status = "Turn Right"
    
    
     def turn_left(self):
@@ -197,8 +197,135 @@ class RobotControl:
         self.back_left_pwm.ChangeDutyCycle(100)
         self.back_right_pwm.ChangeDutyCycle(100)
         
-        self.movement_status = "Turning Left"
-   
+        self.movement_status = "Turn Left"
+    
+    # Start from here, add new 6 movements
+    def forward_left(self):
+        GPIO.output(self.con1in1,GPIO.LOW)
+        GPIO.output(self.con1in2,GPIO.HIGH)
+
+        GPIO.output(self.con1in3,GPIO.LOW)
+        GPIO.output(self.con1in4,GPIO.LOW)
+
+        GPIO.output(self.con2in1,GPIO.LOW)
+        GPIO.output(self.con2in2,GPIO.LOW)
+
+        GPIO.output(self.con2in3,GPIO.HIGH)
+        GPIO.output(self.con2in4,GPIO.LOW)
+
+
+        self.front_right_pwm.ChangeDutyCycle(100)
+        self.front_left_pwm.ChangeDutyCycle(100)
+        self.back_left_pwm.ChangeDutyCycle(100)
+        self.back_right_pwm.ChangeDutyCycle(100)
+
+        self.movement_status = "Steer FL"
+
+    def forward_right(self):
+        GPIO.output(self.con1in1,GPIO.LOW)
+        GPIO.output(self.con1in2,GPIO.LOW)
+
+        GPIO.output(self.con1in3,GPIO.LOW)
+        GPIO.output(self.con1in4,GPIO.HIGH)
+
+        GPIO.output(self.con2in1,GPIO.LOW)
+        GPIO.output(self.con2in2,GPIO.HIGH)
+
+        GPIO.output(self.con2in3,GPIO.LOW)
+        GPIO.output(self.con2in4,GPIO.LOW)
+
+
+        self.front_right_pwm.ChangeDutyCycle(100)
+        self.front_left_pwm.ChangeDutyCycle(100)
+        self.back_left_pwm.ChangeDutyCycle(100)
+        self.back_right_pwm.ChangeDutyCycle(100)
+
+        self.movement_status = "Steer FR"
+
+    def diagonal_up_left(self):
+        GPIO.output(self.con1in1,GPIO.LOW)
+        GPIO.output(self.con1in2,GPIO.HIGH)
+
+        GPIO.output(self.con1in3,GPIO.LOW)
+        GPIO.output(self.con1in4,GPIO.LOW)
+
+        GPIO.output(self.con2in1,GPIO.LOW)
+        GPIO.output(self.con2in2,GPIO.HIGH)
+
+        GPIO.output(self.con2in3,GPIO.LOW)
+        GPIO.output(self.con2in4,GPIO.LOW)
+
+
+        self.front_right_pwm.ChangeDutyCycle(100)
+        self.front_left_pwm.ChangeDutyCycle(100)
+        self.back_left_pwm.ChangeDutyCycle(100)
+        self.back_right_pwm.ChangeDutyCycle(100)
+
+        self.movement_status = "Diagonal"
+
+    def diagonal_up_right(self):
+        GPIO.output(self.con1in1,GPIO.LOW)
+        GPIO.output(self.con1in2,GPIO.LOW)
+
+        GPIO.output(self.con1in3,GPIO.LOW)
+        GPIO.output(self.con1in4,GPIO.HIGH)
+
+        GPIO.output(self.con2in1,GPIO.LOW)
+        GPIO.output(self.con2in2,GPIO.LOW)
+
+        GPIO.output(self.con2in3,GPIO.HIGH)
+        GPIO.output(self.con2in4,GPIO.LOW)
+
+
+        self.front_right_pwm.ChangeDutyCycle(100)
+        self.front_left_pwm.ChangeDutyCycle(100)
+        self.back_left_pwm.ChangeDutyCycle(100)
+        self.back_right_pwm.ChangeDutyCycle(100)
+
+        self.movement_status = "Diagonal"
+
+    def diagonal_back_left(self):
+        GPIO.output(self.con1in1,GPIO.LOW)
+        GPIO.output(self.con1in2,GPIO.LOW)
+
+        GPIO.output(self.con1in3,GPIO.HIGH)
+        GPIO.output(self.con1in4,GPIO.LOW)
+
+        GPIO.output(self.con2in1,GPIO.LOW)
+        GPIO.output(self.con2in2,GPIO.LOW)
+
+        GPIO.output(self.con2in3,GPIO.LOW)
+        GPIO.output(self.con2in4,GPIO.HIGH)
+
+
+        self.front_right_pwm.ChangeDutyCycle(100)
+        self.front_left_pwm.ChangeDutyCycle(100)
+        self.back_left_pwm.ChangeDutyCycle(100)
+        self.back_right_pwm.ChangeDutyCycle(100)
+
+        self.movement_status = "Diagonal"
+
+    def diagonal_back_right(self):
+        GPIO.output(self.con1in1,GPIO.HIGH)
+        GPIO.output(self.con1in2,GPIO.LOW)
+
+        GPIO.output(self.con1in3,GPIO.LOW)
+        GPIO.output(self.con1in4,GPIO.LOW)
+
+        GPIO.output(self.con2in1,GPIO.HIGH)
+        GPIO.output(self.con2in2,GPIO.LOW)
+
+        GPIO.output(self.con2in3,GPIO.LOW)
+        GPIO.output(self.con2in4,GPIO.LOW)
+
+
+        self.front_right_pwm.ChangeDutyCycle(100)
+        self.front_left_pwm.ChangeDutyCycle(100)
+        self.back_left_pwm.ChangeDutyCycle(100)
+        self.back_right_pwm.ChangeDutyCycle(100)
+
+        self.movement_status = "Diagonal"
+
     def stop(self):
         self.front_right_pwm.ChangeDutyCycle(0)
         self.front_left_pwm.ChangeDutyCycle(0)
@@ -237,6 +364,18 @@ class RobotControl:
                                 self.turn_left()
                             elif direction_pressed[ecodes.KEY_RIGHT]:
                                 self.turn_right()
+                            elif direction_pressed[ecodes.KEY_W] and direction_pressed[ecodes.KEY_A]:
+                                self.diagonal_up_left()
+                            elif direction_pressed[ecodes.KEY_W] and direction_pressed[ecodes.KEY_D]:
+                                self.diagonal_up_right()
+                            elif direction_pressed[ecodes.KEY_S] and direction_pressed[ecodes.KEY_A]:
+                                self.diagonal_back_left()
+                            elif direction_pressed[ecodes.KEY_S] and direction_pressed[ecodes.KEY_D]:
+                                self.diagonal_back_right()
+                            elif direction_pressed[ecodes.KEY_W] and direction_pressed[ecodes.KEY_LEFT]:
+                                self.forward_left()
+                            elif direction_pressed[ecodes.KEY_W] and direction_pressed[ecodes.KEY_RIGHT]:
+                                self.forward_right()
                         else:
                             self.stop()
                     elif event.value == 0:
@@ -253,18 +392,28 @@ class RobotControl:
                 self.lcd.clear()
                 if self.movement_status == "Hello World":
                     self.lcd.write_string("     Hello\n\r     World!")
-                elif self.movement_status == "Moving Forward":
+                elif self.movement_status == "Move Forward":
                     self.lcd.write_string("     Moving\n\r    Forward!")
-                elif self.movement_status == "Moving Backward":
+                elif self.movement_status == "Move Backward":
                     self.lcd.write_string("     Moving\n\r    Backward!")
-                elif self.movement_status == "Moving Left":
+                elif self.movement_status == "Move Left":
                     self.lcd.write_string("     Moving\n\r     Left!")
-                elif self.movement_status == "Moving Right":
+                elif self.movement_status == "Move Right":
                     self.lcd.write_string("     Moving\n\r     Right!")
-                elif self.movement_status == "Turning Left":
+                elif self.movement_status == "Turn Left":
                     self.lcd.write_string("    Turning\n\r     Left!")
-                elif self.movement_status == "Turning Right":
+                elif self.movement_status == "Turn Right":
                     self.lcd.write_string("    Turning\n\r    Right!")
+                elif self.movement_status == "Steer FR":
+                    self.lcd.write_string("    Steering\n\r     Right!")
+                elif self.movement_status == "Steer FL":
+                    self.lcd.write_string("    Steering\n\r     Left!")
+                elif self.movement_status == "Steer BR":
+                    self.lcd.write_string("   Reversing\n\r    Right!")
+                elif self.movement_status == "Steer BL":
+                    self.lcd.write_string("   Reversing\n\r     Left!")
+                elif self.movement_status == "Diagonal":
+                    self.lcd.write_string("     Moving\n\r   Diagonally!")
                 prev_status = self.movement_status
 
 if __name__ == "__main__":

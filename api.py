@@ -17,7 +17,19 @@ def control():
     # Right now, only print
     print(f'Received control key: {key}')
     # Next, focus on real control
-    if key == 'w':
+    if key == 'w+a':
+        robot.diagonal_up_left()
+    elif key == 'w+d':
+        robot.diagonal_up_right()
+    elif key == 's+a':
+        robot.diagonal_back_left()
+    elif key == 's+d':
+        robot.diagonal_back_right()
+    elif key == 'w+j':
+        robot.forward_left()
+    elif key == 'w+k':
+        robot.forward_right()
+    elif key == 'w':
         robot.forward()
     elif key == 's':
         robot.backward()
@@ -29,7 +41,7 @@ def control():
         robot.strafe_left() # change later
     elif key == 'k':
         robot.strafe_right() # change later
-    elif key == 'x':
+    elif key == 'stop':
         robot.stop()
 
     # build response message
