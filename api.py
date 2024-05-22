@@ -1,70 +1,53 @@
-from flask import Flask, request, jsonify
+from flask import Flask, redirect, url_for, jsonify, request
 from flask_cors import CORS
-from robot_control import RobotControl
-import threading
+import robot_control  
 
 app = Flask(__name__)
-CORS(app) # allow CORS
-robot = RobotControl()
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True, headers=['Content-Type', 'Authorization'])
+robot = robot_control.RobotControl()
 
-# use to receive POST from client and control RPi
-@app.route('/control', methods=['POST'])
-def control():
-    data = request.json
-    key = data.get('key')
-    
-    # According to the key(w,s,d,a) contorl Raspberry Pi
-    # Right now, only print
-    print(f'Received control key: {key}')
-    # Next, focus on real control
-    if key == 'w+a':
-        robot.diagonal_up_left()
-    elif key == 'w+d':
-        robot.diagonal_up_right()
-    elif key == 's+a':
-        robot.diagonal_back_left()
-    elif key == 's+d':
-        robot.diagonal_back_right()
-    elif key == 'w+j':
-        robot.forward_left()
-    elif key == 'w+k':
-        robot.forward_right()
-    elif key == 'w':
-        robot.forward()
-    elif key == 's':
-        robot.backward()
-    elif key == 'a':
-        robot.turn_left() 
-    elif key == 'd':
-        robot.turn_right()
-    elif key == 'j':
-        robot.strafe_left() # change later
-    elif key == 'k':
-        robot.strafe_right() # change later
-    elif key == 'stop':
-        robot.stop()
+@app.route('/')
+def index():
+    return '''
+    <form action="http://10.13.233.31:5000/forward" method="post">
+        <input type="submit" value="Forward" style="height:120px; width:120px" />
+    </form>
+    '''
 
-    # build response message
-    response_message = f'Client key received: {key}'
-    
-    return jsonify({'message': response_message}), 200
+@app.route('/forward', methods=['POST'])
+def forward():
+    robot.forward()
+    return redirect('http://10.13.233.31:8888/')
 
-def run_robot_threads():
-    movement_thread = threading.Thread(target=robot.handle_movement)
-    movement_thread.start()
+@app.route('/backward', methods=['POST'])
+def backward():
+    robot.backward()
+    return redirect('http://10.13.233.31:8888/')
 
-    lcd_thread = threading.Thread(target=robot.update_lcd)
-    lcd_thread.start()
+@app.route('/strafe_left', methods=['POST'])
+def strafe_left():
+    robot.strafe_left()
+    return redirect('http://10.13.233.31:8888/')
 
-    return movement_thread, lcd_thread
+@app.route('/strafe_right', methods=['POST'])
+def strafe_right():
+    robot.strafe_right()
+    return redirect('http://10.13.233.31:8888/')
+
+@app.route('/turn_left', methods=['POST'])
+def turn_left():
+    robot.turn_left()
+    return redirect('http://10.13.233.31:8888/')
+
+@app.route('/turn_right', methods=['POST'])
+def turn_right():
+    robot.turn_right()
+    return redirect('http://10.13.233.31:8888/')
+
+@app.route('/stop', methods=['POST'])
+def stop():
+    robot.stop()
+    return redirect('http://10.13.233.31:8888/')
 
 if __name__ == '__main__':
-    # run robot threads before run api server
-    movement_thread, lcd_thread = run_robot_threads()
-
-    app.run(debug=True, host='0.0.0.0', port=5000)
-
-    # When the application exits, stop the threads
-    robot.stop_threads()
-    movement_thread.join()
-    lcd_thread.join()
+    app.run(host='0.0.0.0', port=5000)
